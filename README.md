@@ -2,6 +2,7 @@
 best practices for each tech stack that we use, please follow this best practices in most places and when there is a case where this conflicts with anything else, discuss with your team to settle an decent trade-off.
 - [Angular](angular.md)
 - [Git](git)
+- [Golang](golang.md)
 
 
 # Contributing guidelins
