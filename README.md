@@ -3,6 +3,7 @@ best practices for each tech stack that we use, please follow this best practice
 - [Angular](angular.md)
 - [Git](git)
 - [Golang](golang.md)
+- [ROR](ror.md)
 
 
 # Contributing guidelins
