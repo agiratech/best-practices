@@ -45,7 +45,7 @@ programming resources.
 * [CSS](#css)
 * [JavaScript](#javascript)
 * [Managing processes](#managing-processes)
-* [Refactoring techniques](#refactoring-techniques)
+* [Refactoring techniques](#rails-refactoring-techniques)
 
 ## Configuration
 
