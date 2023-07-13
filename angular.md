@@ -59,6 +59,16 @@ Follow the official best practices for each category mentioned below
 - If your component needs more than 5-6 classes and dependency, its probably doing a lot of things and should be broken down into sub-components. (According to Single Responsibility Principle).
 - Review your list of dependencies once in a while to clean up unused dependencies and imports, this is important for tree-shaking (read about it).
 
+### Don't convert observables into promises
+- It is easy to fallback to what you already know. But observables are way more flexible and easier to chain/manipulate than promises.
+- Learn to use observables the right way, Spend time reading rxjs documentation
+- Try to work through observables and streams most of the times
+
+### Don't create nested subscriptions
+- Nested subscriptions are bad.
+- Use [combinational operators](https://www.learnrxjs.io/learn-rxjs/operators/combination) such as mergeMap, SwitchMap, CombineLatest, etc, based on your need to nest the subscriptions.
+- Use the [rxjs operator decision](https://rxjs.dev/operator-decision-tree) tree to decide
+
 ### Clean up after yourself
 - If you have any subscriptions, unsubscribe to them using angular's [lifecycle hooks](https://angular.io/guide/lifecycle-hooks "https://angular.io/guide/lifecycle-hooks") to avoid memory leaks.
 - Use RxJs built in `takeWhile` and `takeUntil` operators to manage subscriptions easily.
