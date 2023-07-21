@@ -145,9 +145,9 @@ NOTE: ```uint``` and ```uint256``` both denote the same. So use ```uint``` or ``
 
 ### String
 
-string datatype is used as ```string userName = "John Wick"```
+- string datatype is used as ```string userName = "John Wick"```
 
-When logical comparision is done between strings ```keccak256(abi.encode(str))``` will make the comparision easy. In solidity strings cannot be compared directly like we do in Javascript using ==.
+- When logical comparision is done between strings ```keccak256(abi.encode(str))``` will make the comparision easy. In solidity strings cannot be compared directly like we do in Javascript using ==.
 
 eg:
 ```solidity
@@ -642,9 +642,9 @@ contract B is A(1) {
 
 ### Abstract Contracts
 
-One of the most preferred method to use within contract to perfrom active functions rather than importing the whole contract.
-An abstract contract is a contract that cannot be instantiated directly. It serves as a blueprint for other contracts and defines the structure and interface that derived contracts must implement.
-Abstract contracts contain function declarations without any implementation.
+- One of the most preferred method to use within contract to perfrom active functions rather than importing the whole contract.
+- An abstract contract is a contract that cannot be instantiated directly. It serves as a blueprint for other contracts and defines the structure and interface that derived contracts must implement.
+- Abstract contracts contain function declarations without any implementation.
 
 example abstract contract:
 
@@ -699,9 +699,9 @@ interface Token {
 
 Events allow the convenient usage of the EVM logging facilities, which in turn can be used to “call” JavaScript callbacks in the user interface of a dapp, which listen for these events.
 
-Up to three parameters can receive the attribute indexed, which will cause the respective arguments to be searched for.
+- Up to three parameters can receive the attribute indexed, which will cause the respective arguments to be searched for.
 
-The events that are emitted can be viewed in the Blockexplorer of the Blockchain where the contract is deployed.
+- The events that are emitted can be viewed in the Blockexplorer of the Blockchain where the contract is deployed.
 
 > All non-indexed arguments will be stored in the data part of the log.
 
@@ -721,7 +721,7 @@ contract ClientReceipt {
 }
 ```
 
-Use events whenever we are we want our Dapp (Decentralised app) to perform certain actions once an event is emitted from the 
+NOTE: Use events whenever we are we want our Dapp (Decentralised app) to perform certain actions once an event is emitted from the 
 contract. (eg: Once Deposit event is emitted from contract our Dapp will display a Deposited successfully message with the
 sender wallet address and amount he deposited)
 
@@ -876,9 +876,9 @@ It is best to use:
 
 Avoid using external calls whenever possible. Calls to untrusted code can lead to security flaw. When using external contract calls, assume that unsafe code might execute. Even if the contract is not malicious, malicious code can be executed by any contracts it calls.
 
-Use External calls at the bottom of the function as it will forward all the gas to the funtion.
+- Use External calls at the bottom of the function as it will forward all the gas to the funtion.
 
-Use `<address>.call.gas(gasAmount)()` to limit sending gas to external calls.
+- Use `<address>.call.gas(gasAmount)()` to limit sending gas to external calls.
 
 ### Using access modifiers
 
@@ -919,9 +919,9 @@ function selfdestruct() onlyOwner {
 
 ### Upgrading contracts
 
-  Using upgradable contracts with a proxy setup is advised. This way we can keep upgrading our contract without losing the funds that we stored. Use `delegatecall` in a proxy contract for upgrading contracts overtime.
+- Using upgradable contracts with a proxy setup is advised. This way we can keep upgrading our contract without losing the funds that we stored. Use `delegatecall` in a proxy contract for upgrading contracts overtime.
 
-  Here we have a proxy contract that holds the funds and other data. The proxy contract holds the address of the implementation contract which has the functional logic.  When we upgrade the logic all we need to do is replace the implementation contract address with new contract address in the proxy contract.
+- Here we have a proxy contract that holds the funds and other data. The proxy contract holds the address of the implementation contract which has the functional logic.  When we upgrade the logic all we need to do is replace the implementation contract address with new contract address in the proxy contract.
 
 ## Final Tips
 
