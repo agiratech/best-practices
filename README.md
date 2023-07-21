@@ -5,7 +5,7 @@ best practices for each tech stack that we use, please follow this best practice
 - [Golang](golang.md)
 - [ROR](ror.md)
 - [QA](QA)
-
+- [Blockchain](Blockchain)
 
 # Contributing guidelins
 When you want to add a new technology best practices, please follow the following guide.
