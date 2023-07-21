@@ -13,27 +13,17 @@
   + [Address](#address)
     - [balance](#balance)
     - [transfer and send](#transfer-and-send)
-    - [call, delegatecall](#call)
+    - [call and delegatecall](#call-and-delegatecall)
   + [Array](#array)
-  + [Fixed byte arrays](#fixed-byte-arrays)
-  + [Dynamic byte arrays](#dynamic-byte-arrays)
-  + [Enum](#enum)
   + [Struct](#struct)
   + [Mapping](#mapping)
   + [Control Structures](#control-structures)
 * [Functions](#functions)
-  + [Structure](#structure)
   + [Access modifiers](#access-modifiers)
-  + [Parameters](#parameters)
-    - [Input parameters](#input-parameters)
-    - [Output parameters](#output-parameters)
   + [Constructor](#constructor)
   + [Function Calls](#function-calls)
     - [Internal Function Calls](#internal-function-calls)
     - [External Function Calls](#external-function-calls)
-    - [Named Calls](#named-calls)
-    - [Unnamed function parameters](#unnamed-function-parameters)
-  + [Function type](#function-type)
   + [Function Modifier](#function-modifier)
   + [View or Constant Functions](#view-or-constant-functions)
   + [Pure Functions](#pure-functions)
@@ -42,8 +32,6 @@
 * [Contracts](#contracts)
   + [Creating contracts using `new`](#creating-contracts-using--new-)
   + [Contract Inheritance](#contract-inheritance)
-    - [Multiple inheritance](#multiple-inheritance)
-    - [Constructor of base class](#constructor-of-base-class)
   + [Abstract Contracts](#abstract-contracts)
 * [Interface](#interface)
 * [Events](#events)
@@ -211,7 +199,7 @@ NOTE:
 
 - However, in most cases, it's recommended to use transfer as it provides a safer way to handle Ether transfers by automatically reverting the transaction on failure.
 
-#### call, delegatecall
+#### call and delegatecall
 
 - `<address>.call(...) returns (bool)`: issue low-level CALL, returns false on failure
 
@@ -351,40 +339,12 @@ Most of the control structures from JavaScript are available in Solidity except 
 	   keep the calculation as seperate "internal" function whereas use this as callback to the main function.
 	   keep important logic as internal function, so @dev can verify and check what is happening under the hood.
 
-### Structure
-
-`function (<parameter types>) {internal|external|public|private} [pure|constant|view|payable] [returns (<return types>)]`
-
 ### Access modifiers
 
 - ```public``` - Accessible from this contract, inherited contracts and externally
 - ```private``` - Accessible only from this contract
 - ```internal``` - Accessible only from this contract and contracts inheriting from it
 - ```external``` - Cannot be accessed internally, only externally. Recommended to reduce gas. Access internally with `this.f`.
-
-### Parameters
-
-#### Input parameters
-
-Parameters are declared just like variables and are `memory` variables.
-
-```solidity
-function f(uint _a, uint _b) {}
-```
-
-#### Output parameters
-
-Output parameters are declared after the `returns` keyword
-
-```solidity
-function f(uint _a, uint _b) returns (uint _sum) {
-   _sum = _a + _b;
-}
-```
-
-Output can also be specified using `return` statement. In that case, we can omit parameter name `returns (uint)`.
-
-Multiple return types are possible with `return (v0, v1, ..., vn)`.
 
 ### Constructor
 
@@ -426,28 +386,6 @@ contract C {
 `this.g(8);` and `c.g(2);` (where c is a contract instance) are also valid function calls, but, the function will be called “externally”, via a message call.
 
 > `.gas()` and `.value()` can also be used with external function calls.
-
-#### Named Calls
-
-Function call arguments can also be given by name in any order as below.
-
-```solidity
-function f(uint a, uint b) {  }
-
-function g() {
-    f({b: 1, a: 2});
-}
-```
-
-#### Unnamed function parameters
-
-Parameters will be present on the stack, but are not accessible.
-
-```solidity
-function f(uint a, uint) returns (uint) {
-    return a;
-}
-```
 
 ### Function Modifier
 
@@ -783,7 +721,6 @@ It is best to use:
 ### Contract Related
 - `this (current contract’s type)`: the current contract, explicitly convertible to Address
 - `selfdestruct(address recipient)`: destroy the current contract, sending its funds to the given Address
-- `suicide(address recipient)`: alias to selfdestruct. Soon to be deprecated.
 
 ## Security Tips
 
