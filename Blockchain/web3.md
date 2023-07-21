@@ -1,5 +1,6 @@
 # Web3.js
-    This document is intended to give a clear cut view on best practices that needs to be followed using Web3.js (JS library used for integrating with smart contract). 
+    This document is intended to give a clear cut view on best practices that needs to be followed using Web3.js 
+    A javascript based library used for integrating with deployed smart contract. 
     - Reference links [Web3.js Tutorial](https://web3js.readthedocs.io/en/v1.10.0/).
     
     
