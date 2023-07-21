@@ -78,8 +78,7 @@ Also ^0.8.0 - versions are more suitable for compiling.
 
 ## Storage, Memory, Calldata
 
-- Storage
-Storage is persistent and permanent storage of Ethereum and ethereum based blockchains.
+- Storage is persistent and permanent storage of Ethereum and ethereum based blockchains.
 State variables are declared outside of functions and are stored in the contract's storage.
 Changes to state variables are expensive in terms of gas because they require writing data to the blockchain.
 
@@ -135,13 +134,7 @@ Comparisons: ```==``` (equality) , ```!=``` (inequality)
 Unsigned : `uint8 | uint16 | uint32 | uint64 | uint128 | uint256(uint)`
 Signed   : `int8  | int16  | int32  | int64  | int128  | int256(int) `
 
-Operators:
-
-- Comparisons: `<=`, `<`, `==`, `!=`, `>=` and `>`
-- Bit operators: `&`, `|`, `^` (bitwise exclusive or) and `~` (bitwise negation)
-- Arithmetic operators: `+`, `-`, unary `-`, unary `+`, `*`, `/`, `%`, `**` (exponentiation), `<<` (left shift) and `>>` (right shift)  
-
-NOTE: ```uint``` and ```uint256``` both denote the same. So use ```uint``` or ```int``` if you are intending to use 256 bits integer. Only specify the bit explicity if you are not using 256.
+- NOTE: ```uint``` and ```uint256``` both denote the same. So use ```uint``` or ```int``` if you are intending to use 256 bits integer. Only specify the bit explicity if you are not using 256.
 
 ### String
 
@@ -166,10 +159,6 @@ function compareStrings(string _str1, string _str2) public returns (bool){
 
 `address`: Holds an Ethereum address (20 byte value).
 `address payable` : Same as address, but includes additional methods `transfer` and `send`
-
-Operators:
-
-- Comparisons: `<=`, `<`, `==`, `!=`, `>=` and `>`
 
 Methods:
 
@@ -217,9 +206,10 @@ contract EtherTransferExample {
 Both transfer and send functions are used to send currency from one address to another. The difference is send will return boolean
 ```true``` or ```false``` based on transaction success or failure.
 
-NOTE: send is useful when you want to check the status of the transfer and handle failures explicitly.
+NOTE:
+- send is useful when you want to check the status of the transfer and handle failures explicitly.
 
-However, in most cases, it's recommended to use transfer as it provides a safer way to handle Ether transfers by automatically reverting the transaction on failure.
+- However, in most cases, it's recommended to use transfer as it provides a safer way to handle Ether transfers by automatically reverting the transaction on failure.
 
 #### call, delegatecall
 
@@ -270,49 +260,16 @@ Arrays can be dynamic or have a fixed size.
 ```solidity
 uint[] dynamicSizeArray; // an uint256 array with no fixed size
 
-uint[7] fixedSizeArray; // an uint256 array with size 7
+uint[7] fixedSizeArray; // an uint256 array with fixed size 7
 ```
-
-### Fixed byte arrays
-
-`bytes1(byte)`, `bytes2`, `bytes3`, ..., `bytes32`.
-
-Operators:
-
-Comparisons: `<=`, `<`, `==`, `!=`, `>=`, `>` (evaluate to bool)
-Bit operators: `&`, `|`, `^` (bitwise exclusive or), `~` (bitwise negation), `<<` (left shift), `>>` (right shift)
-Index access: If x is of type bytesI, then x[k] for 0 <= k < I returns the k th byte (read-only).
-
-Members
-
-- `.length` : read-only (```arrayVariableName.length``` will return the size of the array)
-
-### Dynamic byte arrays
-
-`bytes`: Dynamically-sized `byte` array. It is similar to `byte[]`, but it is packed tightly in calldata. Not a value-type!
-
-`string`: Dynamically-sized UTF-8-encoded string. It is equal to `bytes` but does not allow length or index access. Not a value-type!
-
-### Enum
-
-Enum works just like in every other language.
-
-```solidity
-enum ActionChoices { 
-  GoLeft, 
-  GoRight, 
-  GoStraight, 
-  SitStill 
-}
-
-ActionChoices choice = ActionChoices.GoStraight;
-```
+NOTE:
+- Use fixed sized array to limit storage space, when static prefixed data is stored.
 
 ### Struct
 
 New types can be declared using struct.
 
-Use PascalCase: Start the name of the struct with an uppercase letter, and use uppercase for the first letter of each word in the name. For example: MyStruct, UserInfo, TokenData
+- Use PascalCase: Start the name of the struct with an uppercase letter, and use uppercase for the first letter of each word in the name. For example: MyStruct, UserInfo, TokenData
 Instead of declaring variables singularly use struct to control large data in structured manner.
 
 
@@ -326,8 +283,9 @@ struct UserInfo {
 
 Funder funders;
 ```
+NOTE:
 
-As shown in above example we can use struct datatype to store large data. Even array and mappings can be stored inside a struct.
+- As shown in above example we can use struct datatype to store large data. Even array and mappings can be stored inside a struct.
 
 ### Mapping
 
@@ -342,7 +300,9 @@ mapping(string=>uint) nameToage; // a mapping to map every person name with thei
 mapping(string=>(mapping(string=>uint))) nameToMailIDToPasscode; // a nested mapping. Person name is key to a mapping which has emailID as a key to the passcode.
 ```
 
-NOTE: It is best to use mappings instead of Array as mapping is more gas effective.
+NOTE: 
+- It is best to use mappings instead of array as mapping is more gas effective method to store data.
+- Nested mapping can be used in most cases to control the blockchain structure.
 
 eg: 
 
@@ -451,11 +411,11 @@ Functions of the current contract can be called directly (internally - via jumps
 
 ```solidity
 contract C {
-    function funA() returns (uint) { 
+    function funA() internal returns (uint) { 
        return 5; 
     }
     
-    function FunB(uint _a) returns (uint ret) { 
+    function FunB(uint _a) public returns (uint ret) { 
        return funA() + _a; 
     }
 }
@@ -489,40 +449,6 @@ function f(uint a, uint) returns (uint) {
 }
 ```
 
-### Function type
-
-Pass function as a parameter to another function. Similar to `callbacks` and `delegates`
-
-```solidity
-pragma solidity ^0.4.18;
-
-contract Oracle {
-  struct Request {
-    bytes data;
-    function(bytes memory) external callback;
-  }
-  Request[] requests;
-  event NewRequest(uint);
-  function query(bytes data, function(bytes memory) external callback) {
-    requests.push(Request(data, callback));
-    NewRequest(requests.length - 1);
-  }
-  function reply(uint requestID, bytes response) {
-    // Here goes the check that the reply comes from a trusted source
-    requests[requestID].callback(response);
-  }
-}
-
-contract OracleUser {
-  Oracle constant oracle = Oracle(0x1234567); // known contract
-  function buySomething() {
-    oracle.query("USD", this.oracleResponse);
-  }
-  function oracleResponse(bytes response) {
-    require(msg.sender == address(oracle));
-  }
-}
-```
 ### Function Modifier
 
 Modifiers can automatically check a condition prior to executing the function.
@@ -537,6 +463,9 @@ function close() onlyOwner {
     selfdestruct(owner);
 }
 ```
+NOTE:
+- Function modifier are access controllers.
+- Function with limited access can be controlled by providing modifiers.
 
 ### View or Constant Functions
 
@@ -550,6 +479,10 @@ function f(uint a) view returns (uint) {
 
 > The compiler does not enforce yet that a `view` method is not modifying state.
 
+Note:
+- Use view functions to get data from the write function.
+- Most preferred method to read data from contract.
+
 ### Pure Functions
 
 Functions can be declared `pure` in which case they promise not to read from or modify the state.
@@ -559,6 +492,9 @@ function f(uint a) pure returns (uint) {
     return a * 42;
 }
 ```
+Note:
+- Use pure functions to read pre-defined data from the contract.
+- The state modifiying read functions cannot be considered "pure".
 
 ### Payable Functions
 
@@ -614,28 +550,6 @@ contract mortal is owned {
 contract final is mortal {
     function kill() { 
         super.kill(); // Calls kill() of mortal.
-    }
-}
-```
-
-#### Multiple inheritance
-
-```solidity
-contract A {}
-contract B {}
-contract C is A, B {}
-```
-
-#### Constructor of base class
-
-```solidity
-contract A {
-    uint a;
-    constructor(uint _a) { a = _a; }
-}
-
-contract B is A(1) {
-    constructor(uint _b) A(_b) {
     }
 }
 ```
@@ -699,6 +613,7 @@ interface Token {
 
 Events allow the convenient usage of the EVM logging facilities, which in turn can be used to “call” JavaScript callbacks in the user interface of a dapp, which listen for these events.
 
+NOTE:
 - Up to three parameters can receive the attribute indexed, which will cause the respective arguments to be searched for.
 
 - The events that are emitted can be viewed in the Blockexplorer of the Blockchain where the contract is deployed.
@@ -922,6 +837,8 @@ function selfdestruct() onlyOwner {
 - Using upgradable contracts with a proxy setup is advised. This way we can keep upgrading our contract without losing the funds that we stored. Use `delegatecall` in a proxy contract for upgrading contracts overtime.
 
 - Here we have a proxy contract that holds the funds and other data. The proxy contract holds the address of the implementation contract which has the functional logic.  When we upgrade the logic all we need to do is replace the implementation contract address with new contract address in the proxy contract.
+
+- UUPS is preferred proxy to be used. (at the moment)
 
 ## Final Tips
 
