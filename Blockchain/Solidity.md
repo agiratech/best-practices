@@ -48,6 +48,7 @@
   + [Using access modifiers](#using-access-modifiers)
   + [Make use of function mofidiers](#using-function-modifiers)
   + [Using upgradable contracts via Proxy](#using-proxy-contracts)
+* [Slither - Static Analyser](#Slither-testing)
 * [Final Tips](#final-tips)
 
 ## Pragma Version
@@ -776,6 +777,23 @@ function selfdestruct() onlyOwner {
 - Here we have a proxy contract that holds the funds and other data. The proxy contract holds the address of the implementation contract which has the functional logic.  When we upgrade the logic all we need to do is replace the implementation contract address with new contract address in the proxy contract.
 
 - UUPS is preferred proxy to be used. (at the moment)
+
+## Slither testing
+
+Slither is a essential tools for performing static analysis on Solidity smart contracts. These analyzers help developers and auditors identify potential vulnerabilities, security flaws, and code quality issues in the smart contract code without actually executing the contract on the blockchain.
+
+### Here are a few best practises about using Slither:
+
+- Static Analysis: Static analysis is a method of code analysis that examines the code's structure and properties without executing it. Unlike dynamic analysis, which requires running the code, static analysis is non-intrusive and can identify issues in the code before deployment.
+
+- Vulnerability Detection: Slither and similar tools are specifically designed to detect common security vulnerabilities in Solidity smart contracts, such as reentrancy, integer overflow/underflow, uninitialized state variables, and more.
+
+- Code Quality Improvement: Static analyzers not only focus on security issues but also help improve code quality by flagging potential bugs, code smells, and style violations.
+
+- Community Support: Slither have active developer communities, which means they are continuously updated with new rules, bug fixes, and improvements based on feedback and research.
+
+- Complementary to Dynamic Testing: While dynamic testing and manual auditing are crucial for thoroughly validating smart contracts, static analyzers serve as an additional layer of security, providing early detection of potential issues.
+
 
 ## Final Tips
 
