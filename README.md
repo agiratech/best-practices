@@ -5,6 +5,7 @@ best practices for each tech stack that we use, please follow this best practice
 - [Golang](golang.md)
 - [ROR](ror.md)
 - [Vue](vuejs.md)
+- [React](reactjs.md)
 - [QA](QA)
 - [Blockchain](Blockchain)
 
