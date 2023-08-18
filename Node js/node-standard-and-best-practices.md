@@ -1,9 +1,5 @@
 # Agira NodeJS Standards and best practices
 
-<h1 align="center">
-  <img src="https://raw.githubusercontent.com/arinaldi118/documentacion/master/assets/images/banner.png" alt="Node.js Best Practices">
-</h1>
-
    - [1- Objective](#1--objective)
    - [2- APP Structure](#2--app-structure)
      - [2.1- Controllers](#21--controllers)
