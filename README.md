@@ -8,7 +8,7 @@ best practices for each tech stack that we use, please follow this best practice
 - [React](reactjs.md)
 - [QA](QA)
 - [Blockchain](Blockchain)
-- [Node](Node)
+- [Node js](Node)
 
 # Contributing guidelins
 When you want to add a new technology best practices, please follow the following guide.
